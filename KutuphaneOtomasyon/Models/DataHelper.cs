@@ -14,7 +14,6 @@ namespace KutuphaneOtomasyon
     {
         public static string conStr;
         public readonly SqlConnection connect;
-        //deneme mesajı
         public DataHelper()
         {
             conStr = "Data Source=LAPTOP-VMEL2LCP\\SQLEXPRESS01;Initial Catalog=kutuphane;Integrated Security=True";
