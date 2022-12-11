@@ -49,8 +49,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\DataHelper.cs" />
-    <Compile Include="Models\KitapAlModel.cs" />
+    <Compile Include="DataHelper.cs" />
+    <Compile Include="frmKitapGuncelle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmKitapGuncelle.Designer.cs">
+      <DependentUpon>frmKitapGuncelle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KitapTeslimAlModel.cs" />
     <Compile Include="frmTeslimIslemleri.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,6 +86,9 @@
     <Compile Include="Models\UyeIslemModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmKitapGuncelle.resx">
+      <DependentUpon>frmKitapGuncelle.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmTeslimIslemleri.resx">
       <DependentUpon>frmTeslimIslemleri.cs</DependentUpon>
     </EmbeddedResource>

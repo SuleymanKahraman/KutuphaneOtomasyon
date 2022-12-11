@@ -21,14 +21,14 @@ namespace KutuphaneOtomasyon
         }
         public void UyeEkle(UyeIslemModel model)
         {
-            SqlCommand ekle = new SqlCommand("INSERT INTO tblUyeler(Ad, Soyad, Meslek) VALUES (@Ad, @Soyad, @Meslek)",connect);
+            SqlCommand ekle = new SqlCommand("INSERT INTO tblUyeler(Ad, Soyad, Meslek) VALUES (@Ad, @Soyad, @Meslek)", connect);
             connect.Open();
             ekle.Parameters.AddWithValue("Ad", model.Ad);
             ekle.Parameters.AddWithValue("Soyad", model.Soyad);
             ekle.Parameters.AddWithValue("Meslek", model.Meslek);
             ekle.ExecuteNonQuery();
             connect.Close();
-            
+
         }
 
         public bool UyeSorgu(UyeIslemModel model)
@@ -36,12 +36,13 @@ namespace KutuphaneOtomasyon
             connect.Open();
             SqlCommand sorgu = new SqlCommand($"SELECT * FROM tblUyeler WHERE Ad = '{model.Ad}' AND Soyad = '{model.Soyad}'", connect);
             SqlDataReader oku = sorgu.ExecuteReader();
-            if (oku.Read())
+            var result = oku.Read();
+            connect.Close();
+            if (result)
             {
-                connect.Close();
+                
                 return false;
             }
-            connect.Close();
             return true;
         }
 
@@ -95,59 +96,85 @@ namespace KutuphaneOtomasyon
             return false;
         }
 
-        public bool KitapAl(KitapAlModel model)
+        public bool KitapTeslimAl(KitapTeslimAlModel model)
         {
             connect.Open();
-            SqlCommand UpdateTeslim = new SqlCommand("UPDATE tblTakip SET GeldigiTarih=@GeldigiTarih, IslemSonucu=1 WHERE UyeId=@UyeId", connect);
-            UpdateTeslim.Parameters.AddWithValue("UyeId", model.UyeId);
+            SqlCommand UpdateTeslim = new SqlCommand("UPDATE tblTakip SET GeldigiTarih=@GeldigiTarih, IslemSonucu=1 WHERE ID=@ID", connect);
+            UpdateTeslim.Parameters.AddWithValue("ID", model.TakipId);
             UpdateTeslim.Parameters.AddWithValue("GeldigiTarih", model.GeldigiTarih);
             UpdateTeslim.ExecuteNonQuery();
             UpdateTeslim = new SqlCommand("UPDATE tblKitaplar SET Uygunluk=1 WHERE ID=@ID", connect);
             UpdateTeslim.Parameters.AddWithValue("ID", model.KitapId);
-            UpdateTeslim.ExecuteNonQuery();
-            if (model.CezaPuani > 0)
+            var result = UpdateTeslim.ExecuteNonQuery();
+            if (result>0)
             {
-                UpdateTeslim = new SqlCommand("UPDATE tblUyeler SET CezaPuani=@CezaPuani WHERE ID=@ID", connect);
-                UpdateTeslim.Parameters.AddWithValue("ID", model.UyeId);
-                UpdateTeslim.Parameters.AddWithValue("CezaPuani", model.CezaPuani);
-                UpdateTeslim.ExecuteNonQuery();
+                if (model.CezaPuani > 0)
+                {
+                    UpdateTeslim = new SqlCommand("UPDATE tblUyeler SET CezaPuani=@CezaPuani WHERE ID=@ID", connect);
+                    UpdateTeslim.Parameters.AddWithValue("ID", model.UyeId);
+                    UpdateTeslim.Parameters.AddWithValue("CezaPuani", model.CezaPuani);
+                    UpdateTeslim.ExecuteNonQuery();
+                }
+                connect.Close();
+                return true;
             }
             connect.Close();
-            return true;
-
+            return false;
         }
-        public bool UyeSilme (UyeIslemModel model)
+
+        public bool UyeCezaPuaniSifirla(int uyeId)
+        {
+            connect.Open();
+            SqlCommand updateCezaPuani = new SqlCommand("UPDATE tblUyeler SET CezaPuani=0 WHERE ID=@ID", connect);
+            updateCezaPuani.Parameters.AddWithValue("ID", uyeId);
+            var result = updateCezaPuani.ExecuteNonQuery();
+            connect.Close();
+            if (result > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool UyeSilme(UyeIslemModel model)
         {
             connect.Open();
             SqlCommand sil = new SqlCommand("DELETE FROM tblUyeler WHERE ID=@ID", connect);
             sil.Parameters.AddWithValue("ID", model.Id);
-            sil.ExecuteNonQuery();  
+            var result = sil.ExecuteNonQuery();
             connect.Close();
-            return true;
-            
+            if(result > 0)
+            {
+                return true;
+            }
+            return false;
         }
-        public bool KitapSilme (KitapIslemModel model)
+        public bool KitapSilme(KitapIslemModel model)
         {
             SqlCommand sil = new SqlCommand("DELETE FROM tblKitaplar WHERE ID=@ID", connect);
             connect.Open();
             sil.Parameters.AddWithValue("ID", model.KitapId);
-            sil.ExecuteNonQuery();
+            var result = sil.ExecuteNonQuery();
             connect.Close();
-            return true; 
-                
+            if( result > 0)
+            {
+                return true;
+            }
+            return false;
+
         }
-        public bool UyeGuncelle (UyeIslemModel model)
+        public bool UyeGuncelle(UyeIslemModel model)
         {
             SqlCommand guncelle = new SqlCommand("UPDATE tblUyeler SET Ad=@Ad, Soyad=@Soyad, Meslek=@Meslek WHERE ID=@ID", connect);
             connect.Open();
-            guncelle.Parameters.AddWithValue("ID",model.Id);
+            guncelle.Parameters.AddWithValue("ID", model.Id);
             guncelle.Parameters.AddWithValue("Ad", model.Ad);
             guncelle.Parameters.AddWithValue("Soyad", model.Soyad);
             guncelle.Parameters.AddWithValue("Meslek", model.Meslek);
             guncelle.ExecuteNonQuery();
             connect.Close();
             return true;
-            
+
         }
         public bool KitapGuncelle(KitapIslemModel model)
         {
@@ -156,12 +183,12 @@ namespace KutuphaneOtomasyon
             guncelle.Parameters.AddWithValue("ID", model.KitapId);
             guncelle.Parameters.AddWithValue("KitapAdi", model.KitapAdi);
             guncelle.Parameters.AddWithValue("Yazar", model.Yazar);
-            guncelle.Parameters.AddWithValue("Tur", model.Tur); 
-            guncelle.Parameters.AddWithValue("Sayfa", model.Sayfa); 
+            guncelle.Parameters.AddWithValue("Tur", model.Tur);
+            guncelle.Parameters.AddWithValue("Sayfa", model.Sayfa);
             guncelle.ExecuteNonQuery();
             connect.Close();
             return true;
-           
+
         }
         public DataTable VeriAl(string sql)
         {
@@ -173,7 +200,7 @@ namespace KutuphaneOtomasyon
             return dt;
         }
 
-     
-        
+
+
     }
 }

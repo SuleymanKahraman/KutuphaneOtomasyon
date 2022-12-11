@@ -115,5 +115,26 @@ namespace KutuphaneOtomasyon
             txtSoyad.Text = dgvUyeler.CurrentRow.Cells[2].Value.ToString();
             txtMeslek.Text = dgvUyeler.CurrentRow.Cells[3].Value.ToString();
         }
+
+        private void cezaPuanınıSilToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int selectedIndex = dgvUyeler.CurrentRow.Index;
+            int uyeId = (int)dgvUyeler.CurrentRow.Cells[0].Value;
+            bool result = helper.UyeCezaPuaniSifirla(uyeId);
+            if (result)
+            {
+                MessageBox.Show("Sıfırlama işleminiz başarılı.", "Bildirim", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                dgvUyeler.DataSource = helper.VeriAl("SELECT * FROM tblUyeler");
+
+
+                dgvUyeler.ClearSelection();
+                dgvUyeler.Rows[selectedIndex].Selected = true;
+                dgvUyeler.Rows[selectedIndex].DefaultCellStyle.SelectionBackColor = Color.Green;
+            }
+            else
+            {
+                MessageBox.Show("Sıfırlama işlemi sırasında bir sorun oluştu.", "Bildirim", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

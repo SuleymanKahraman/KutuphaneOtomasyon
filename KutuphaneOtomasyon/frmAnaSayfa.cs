@@ -1,12 +1,6 @@
 ﻿using KutuphaneOtomasyon.Models;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace KutuphaneOtomasyon
@@ -14,17 +8,39 @@ namespace KutuphaneOtomasyon
     public partial class frmAnaSayfa : Form
     {
         private readonly DataHelper helper;
+
         public frmAnaSayfa()
         {
             InitializeComponent();
             helper = new DataHelper();
         }
 
+        private void Renklendir()
+        {
+            for (int i = 0; i < dgvKitap.Rows.Count - 1; i++)
+            {
+                if ((int)dgvKitap.Rows[i].Cells[5].Value == 1)
+                {
+                    dgvKitap.Rows[i].DefaultCellStyle.BackColor = Color.LightGreen;
+                }
+                else
+                {
+                    dgvKitap.Rows[i].DefaultCellStyle.BackColor = Color.Red;
+                }
+            }
+
+            for (int i = 0; i < dgvUye.Rows.Count - 1; i++)
+            {
+                if ((int)dgvUye.Rows[i].Cells[4].Value >= 50)
+                {
+                    dgvUye.Rows[i].DefaultCellStyle.BackColor = Color.Red;
+                }
+            }
+        }
+
         private void frmTakipIslemleri_Load(object sender, EventArgs e)
         {
-            dgvUye.DataSource = helper.VeriAl("SELECT * FROM tblUyeler");
-            dgvKitap.DataSource = helper.VeriAl("SELECT * FROM tblKitaplar");
-            
+            VerileriYukle();
         }
 
         private void txtUyeIsmi_TextChanged(object sender, EventArgs e)
@@ -51,7 +67,6 @@ namespace KutuphaneOtomasyon
                         Uygunluk = (int)dgvKitap.CurrentRow.Cells[5].Value,
                         AlimTarihi = DateTime.Today,
                         TeslimTarihi = DateTime.Today.AddDays(int.Parse(txtEmanetGun.Text))
-
                     };
                     if (model.CezaPuani >= 50)
                     {
@@ -63,7 +78,6 @@ namespace KutuphaneOtomasyon
                         if (result)
                         {
                             txtTeslimTarih.Text = model.TeslimTarihi.ToString("dddd, dd MMMM yyyy");
-                            dgvViewtakip.DataSource = helper.VeriAl("SELECT * FROM vwTakipIslem WHERE UyeID LIKE '" + model.UyeId + "'");
                         }
                         else
                         {
@@ -80,10 +94,7 @@ namespace KutuphaneOtomasyon
             {
                 MessageBox.Show("Emanet Verilecek Gün Sayısını Giriniz!");
             }
-            dgvUye.DataSource = helper.VeriAl("SELECT * FROM tblUyeler");
-            dgvKitap.DataSource = helper.VeriAl("SELECT * FROM tblKitaplar");
-            //Application.Restart();
-
+            VerileriYukle();
         }
 
         private void çıkışToolStripMenuItem_Click(object sender, EventArgs e)
@@ -93,33 +104,43 @@ namespace KutuphaneOtomasyon
 
         private void kitaplarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmKitap frmKitap = new frmKitap(); 
+            frmKitap frmKitap = new frmKitap();
             frmKitap.ShowDialog();
             frmKitap.Dispose();
         }
 
         private void uyelerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmUye frmUye = new frmUye();   
+            frmUye frmUye = new frmUye();
             frmUye.ShowDialog();
-            frmUye.Dispose();   
+            frmUye.Dispose();
+            VerileriYukle();
         }
 
         private void teslimİşlemleriToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmTeslimIslemleri formBelirsiz = new frmTeslimIslemleri();
-            formBelirsiz.ShowDialog();
+            frmTeslimIslemleri frmTeslimIslemleri = new frmTeslimIslemleri();
+            frmTeslimIslemleri.ShowDialog();
+            frmTeslimIslemleri.Dispose();
+            VerileriYukle();
+        }
 
+        private void VerileriYukle()
+        {
+            dgvUye.DataSource = helper.VeriAl("SELECT * FROM tblUyeler");
+            dgvKitap.DataSource = helper.VeriAl("SELECT * FROM tblKitaplar");
+            dgvKitap.ClearSelection();
+            dgvUye.ClearSelection();
+            Renklendir();
         }
 
         private void txtYazarFiltre_TextChanged(object sender, EventArgs e)
         {
-            dgvKitap.DataSource = helper.VeriAl("SELECT * FROM tblKitaplar WHERE Yazar LIKE '" +txtYazarFiltre.Text+ "%'");
+            dgvKitap.DataSource = helper.VeriAl("SELECT * FROM tblKitaplar WHERE Yazar LIKE '" + txtYazarFiltre.Text + "%'");
         }
 
         private void txtTeslimTarih_TextChanged(object sender, EventArgs e)
         {
-
         }
     }
 }

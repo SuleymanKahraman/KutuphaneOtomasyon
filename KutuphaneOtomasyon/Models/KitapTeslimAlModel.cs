@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace KutuphaneOtomasyon
 {
-    public class KitapAlModel
+    public class KitapTeslimAlModel
     {
+        public int TakipId { get; set; }
         public int UyeId { get; set; }
         public int KitapId { get; set; }
         public int CezaPuani { get; set; }
