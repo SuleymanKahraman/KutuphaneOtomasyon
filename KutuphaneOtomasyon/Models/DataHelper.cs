@@ -28,8 +28,21 @@ namespace KutuphaneOtomasyon
             ekle.Parameters.AddWithValue("Meslek", model.Meslek);
             ekle.ExecuteNonQuery();
             connect.Close();
-            MessageBox.Show("İşleminiz Başarıyla Gerçekleşti.");
+            
+        }
 
+        public bool UyeSorgu(UyeIslemModel model)
+        {
+            connect.Open();
+            SqlCommand sorgu = new SqlCommand($"SELECT * FROM tblUyeler WHERE Ad = '{model.Ad}' AND Soyad = '{model.Soyad}'", connect);
+            SqlDataReader oku = sorgu.ExecuteReader();
+            if (oku.Read())
+            {
+                connect.Close();
+                return false;
+            }
+            connect.Close();
+            return true;
         }
 
         // TODO: ctrl R+R (Global Rename)

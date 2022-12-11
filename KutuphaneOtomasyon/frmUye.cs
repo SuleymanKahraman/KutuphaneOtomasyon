@@ -39,23 +39,34 @@ namespace KutuphaneOtomasyon
         }
         private void btnKaydet_Click(object sender, EventArgs e)
         {
-            model = new UyeIslemModel()
-            {
-                Ad = txtAd.Text,
-                Soyad = txtSoyad.Text,
-                Meslek = txtMeslek.Text
-            };
+            
             if (txtAd.Text=="" || txtSoyad.Text=="" || txtMeslek.Text=="")
             {
                 MessageBox.Show("Alanlar Boş Bırakılamaz!");
             }
             else
             {
-                helper.UyeEkle(model);
-                txtAd.Clear();
-                txtSoyad.Clear();
-                txtMeslek.Clear();
+                model = new UyeIslemModel()
+                {
+                    Ad = txtAd.Text,
+                    Soyad = txtSoyad.Text,
+                    Meslek = txtMeslek.Text
+                };
+                var result = helper.UyeSorgu(model);
+                if (result)
+                {
+                    helper.UyeEkle(model);
+                    MessageBox.Show("Kayıt işlemi başarılı.", "Bildirim", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Aynı İsim ve Soyisimde başka bir kullanıcı mevcut.");
+                }
+                
             }
+            txtAd.Clear();
+            txtSoyad.Clear();
+            txtMeslek.Clear();
             dgvUyeler.DataSource = helper.VeriAl("SELECT * FROM tblUyeler");
         }
 
