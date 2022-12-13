@@ -13,6 +13,7 @@ namespace KutuphaneOtomasyon
         public int UyeId { get; set; }
         public int KitapId { get; set; }
         public int CezaPuani { get; set; }
+        public int IslemSonuc { get; set; }
         public DateTime GeldigiTarih { get; set; }
         public DateTime TeslimTarihi { get; set; }
         

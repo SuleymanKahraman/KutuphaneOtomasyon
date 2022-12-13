@@ -26,23 +26,25 @@ namespace KutuphaneOtomasyon
 
         private void frmUyeEkle_Load(object sender, EventArgs e)
         {
-            dgvUyeler.DataSource = helper.VeriAl("SELECT * FROM tblUyeler");
+            VeriYukle();
+            Renklendir();
         }
-        private UyeIslemModel GetData()
+        private void Renklendir()
         {
-            UyeIslemModel model = new UyeIslemModel()
+            for (int i = 0; i < dgvUyeler.Rows.Count - 1; i++)
             {
-                Id= (int)dgvUyeler.CurrentRow.Cells[0].Value,
-                
-            };
-            return model;
+                if ((int)dgvUyeler.Rows[i].Cells[4].Value >= 50)
+                {
+                    dgvUyeler.Rows[i].DefaultCellStyle.BackColor = Color.Red;
+                }
+            }
         }
         private void btnKaydet_Click(object sender, EventArgs e)
         {
             
             if (txtAd.Text=="" || txtSoyad.Text=="" || txtMeslek.Text=="")
             {
-                MessageBox.Show("Alanlar Boş Bırakılamaz!");
+                MessageBox.Show("Alanlar Boş Bırakılamaz!", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
             {
@@ -60,18 +62,74 @@ namespace KutuphaneOtomasyon
                 }
                 else
                 {
-                    MessageBox.Show("Aynı İsim ve Soyisimde başka bir kullanıcı mevcut.");
+                    MessageBox.Show("Aynı İsim ve Soyisimde başka bir kullanıcı mevcut.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 
             }
             txtAd.Clear();
             txtSoyad.Clear();
             txtMeslek.Clear();
-            dgvUyeler.DataSource = helper.VeriAl("SELECT * FROM tblUyeler");
+            VeriYukle();
         }
 
-        private void btnSil_Click(object sender, EventArgs e)
+        private void cezaPuanınıSilToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            int selectedIndex = dgvUyeler.CurrentRow.Index;
+            int uyeId = (int)dgvUyeler.CurrentRow.Cells[0].Value;
+            int cezaPuani = (int)dgvUyeler.CurrentRow.Cells[4].Value;
+            if(cezaPuani < 50)
+            {
+                MessageBox.Show("50 ve üzerindeki ceza puanları silinebilir.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                bool result = helper.UyeCezaPuaniSifirla(uyeId);
+                if (result)
+                {
+                    MessageBox.Show("Ceza Puanı Güncellendi.", "Bildirim", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    VeriYukle();
+                    Renklendir();
+                    dgvUyeler.Rows[selectedIndex].Selected = true;
+                    dgvUyeler.Rows[selectedIndex].DefaultCellStyle.BackColor = Color.YellowGreen;
+                }
+                else
+                {
+                    MessageBox.Show("Sıfırlama işlemi sırasında bir sorun oluştu.", "Bildirim", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+            
+           
+        }
+
+        private void VeriYukle()
+        {
+            dgvUyeler.DataSource = helper.VeriAl("SELECT * FROM tblUyeler");
+            dgvUyeler.ClearSelection();
+        }
+
+        private void güncelleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int selectedIndex = dgvUyeler.CurrentRow.Index;
+            model = new UyeIslemModel()
+            {
+                Id = (int)dgvUyeler.CurrentRow.Cells[0].Value,
+                Ad = dgvUyeler.CurrentRow.Cells[1].Value.ToString(),
+                Soyad = dgvUyeler.CurrentRow.Cells[2].Value.ToString(),
+                Meslek = dgvUyeler.CurrentRow.Cells[3].Value.ToString(),
+            };
+            frmUyeGuncelle frmGuncelle = new frmUyeGuncelle(model);
+            frmGuncelle.ShowDialog();
+            VeriYukle();
+            dgvUyeler.Rows[selectedIndex].Selected = true;
+            dgvUyeler.Rows[selectedIndex].DefaultCellStyle.SelectionBackColor = Color.Gray;
+
+
+        }
+
+        private void silToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int selectedIndex = dgvUyeler.CurrentRow.Index;
             model = new UyeIslemModel()
             {
                 Id = (int)dgvUyeler.CurrentRow.Cells[0].Value,
@@ -79,62 +137,13 @@ namespace KutuphaneOtomasyon
             var result = helper.UyeSilme(model);
             if (result)
             {
-                MessageBox.Show("UyeSilme İşlemi BAŞARILI.");
+                MessageBox.Show("UyeSilme İşlemi BAŞARILI.", "Bildirim", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                MessageBox.Show("Silme İşlemi BAŞARISIZ.");
+                MessageBox.Show("Silme İşlemi BAŞARISIZ.", "Bildirim", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            dgvUyeler.DataSource = helper.VeriAl("SELECT * FROM tblUyeler");
-        }
-
-        private void btnGuncelle_Click(object sender, EventArgs e)
-        {
-            model = new UyeIslemModel()
-            {
-                Id = (int)dgvUyeler.CurrentRow.Cells[0].Value,
-                Ad = txtAd.Text,
-                Soyad = txtSoyad.Text,
-                Meslek = txtMeslek.Text
-            };
-            var result = helper.UyeGuncelle(model);
-            if (result)
-            {
-                MessageBox.Show("Güncelleme İşlemi Başarılı.");
-            }
-            else
-            {
-                MessageBox.Show("Güncelleme İşlemi YAPILAMADI.");
-            }
-            dgvUyeler.DataSource = helper.VeriAl("SELECT * FROM tblUyeler");
-        }
-
-        private void dgvUyeler_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            txtAd.Text = dgvUyeler.CurrentRow.Cells[1].Value.ToString();
-            txtSoyad.Text = dgvUyeler.CurrentRow.Cells[2].Value.ToString();
-            txtMeslek.Text = dgvUyeler.CurrentRow.Cells[3].Value.ToString();
-        }
-
-        private void cezaPuanınıSilToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            int selectedIndex = dgvUyeler.CurrentRow.Index;
-            int uyeId = (int)dgvUyeler.CurrentRow.Cells[0].Value;
-            bool result = helper.UyeCezaPuaniSifirla(uyeId);
-            if (result)
-            {
-                MessageBox.Show("Sıfırlama işleminiz başarılı.", "Bildirim", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                dgvUyeler.DataSource = helper.VeriAl("SELECT * FROM tblUyeler");
-
-
-                dgvUyeler.ClearSelection();
-                dgvUyeler.Rows[selectedIndex].Selected = true;
-                dgvUyeler.Rows[selectedIndex].DefaultCellStyle.SelectionBackColor = Color.Green;
-            }
-            else
-            {
-                MessageBox.Show("Sıfırlama işlemi sırasında bir sorun oluştu.", "Bildirim", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            VeriYukle();
         }
     }
 }

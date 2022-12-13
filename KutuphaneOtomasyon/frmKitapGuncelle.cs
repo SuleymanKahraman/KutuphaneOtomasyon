@@ -28,7 +28,7 @@ namespace KutuphaneOtomasyon
         {
             if (model.Uygunluk == 0)
             {
-                MessageBox.Show("Emanet Verilmiş Kitap GÜNCELLENEMEZ.");
+                MessageBox.Show("Emanet Verilmiş Kitap Güncellenemez.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
             {
@@ -39,12 +39,12 @@ namespace KutuphaneOtomasyon
                 var result = helper.KitapGuncelle(model);
                 if (result)
                 {
-                    MessageBox.Show("Güncelleme İşlemi BAŞARILI.");
+                    MessageBox.Show("Güncelleme İşlemi Başarılı.", "Bildirim", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
                 }
                 else
                 {
-                    MessageBox.Show("Güncelleme İşlemi YAPILAMADI.");
+                    MessageBox.Show("Güncelleme İşlemi Yapılamadı.", "Bildirim", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
             }

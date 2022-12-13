@@ -70,7 +70,7 @@ namespace KutuphaneOtomasyon
                     };
                     if (model.CezaPuani >= 50)
                     {
-                        MessageBox.Show($"{model.UyeId} No'lu Kullanıcının ceza puanı kitap teslimine uygun değildir.");
+                        MessageBox.Show($"{model.UyeId} No'lu Kullanıcının ceza puanı kitap teslimine uygun değildir.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                     else
                     {
@@ -87,12 +87,12 @@ namespace KutuphaneOtomasyon
                 }
                 else
                 {
-                    MessageBox.Show("Emanet Gün Sayısı 60 günden fazla olamaz!");
+                    MessageBox.Show("Emanet Gün Sayısı 60 günden fazla olamaz!", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             else
             {
-                MessageBox.Show("Emanet Verilecek Gün Sayısını Giriniz!");
+                MessageBox.Show("Emanet Verilecek Gün Sayısını Giriniz!", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             VerileriYukle();
         }

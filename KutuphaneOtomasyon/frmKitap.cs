@@ -31,7 +31,7 @@ namespace KutuphaneOtomasyon
             };
             if (txtKitapAdi.Text == "" || txtYazar.Text == "" || txtTur.Text == "" || txtSayfa.Text == "")
             {
-                MessageBox.Show("Alanları Boş BIRAKMAYINIZ!");
+                MessageBox.Show("Alanları boş bırakmayınız!", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
             {
@@ -73,18 +73,18 @@ namespace KutuphaneOtomasyon
                 };
                 if (model.Uygunluk == 0)
                 {
-                    MessageBox.Show("Emanet Verilmiş Kitap SİLİNEMEZ.");
+                    MessageBox.Show("Emanet Verilmiş Kitap Silinemez.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else
                 {
                     var result = helper.KitapSilme(model);
                     if (result)
                     {
-                        MessageBox.Show($"{model.KitapId} No'lu Kitap Veri Tabanınından SİLİNMİŞTİR.");
+                        MessageBox.Show($"{model.KitapId} No'lu Kitap Veri Tabanınından Silinmiştir.", "Bildirim", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
                     {
-                        MessageBox.Show("Silme İşlemi BAŞARISIZ.");
+                        MessageBox.Show("Silme İşlemi Başarısız.", "Bildirim", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 dgvKitaplar.DataSource = helper.VeriAl("SELECT * FROM tblKitaplar");

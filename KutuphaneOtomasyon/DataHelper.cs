@@ -58,7 +58,7 @@ namespace KutuphaneOtomasyon
             ekle.Parameters.AddWithValue("Sayfa", model.Sayfa);
             ekle.ExecuteNonQuery();
             connect.Close();
-            MessageBox.Show("İşleminiz Başarıyla Gerçekleşti.");
+            MessageBox.Show("İşleminiz Başarıyla Gerçekleşti.", "Bildirim", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         }
         public bool KitapVer(KitapVerModel model)
@@ -66,7 +66,7 @@ namespace KutuphaneOtomasyon
             connect.Open();
             if (model.Uygunluk == 0)
             {
-                MessageBox.Show("Kitap Emanet Verilemez.");
+                MessageBox.Show("Kitap Emanet Verilemez.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 //return; metodu ilgili scopeta kesen keyworddür. metot bişey dönmez ancak devam da etmez.
             }
             else if (model.Uygunluk == 1)
@@ -76,21 +76,20 @@ namespace KutuphaneOtomasyon
                 ekle.Parameters.AddWithValue("KitapID", model.KitapId);
                 ekle.Parameters.AddWithValue("AlimTarihi", model.AlimTarihi);
                 ekle.Parameters.AddWithValue("TeslimTarihi", model.TeslimTarihi);
-                //ekle.Parameters.AddWithValue("GeldigiTarih", geldigitarih);
                 var result = ekle.ExecuteNonQuery();
                 if (result == 1)
                 {
                     ekle = new SqlCommand("UPDATE tblKitaplar SET Uygunluk=0 WHERE ID=@ID", connect);
                     ekle.Parameters.AddWithValue("ID", model.KitapId);
                     ekle.ExecuteNonQuery();
-                    MessageBox.Show("İşleminiz Başarıyla Gerçekleşti.");
+                    MessageBox.Show("İşleminiz Başarıyla Gerçekleşti.", "Bildirim", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 connect.Close();
                 return true;
             }
             else
             {
-                MessageBox.Show("İşleminiz Gerçekleşmedi");
+                MessageBox.Show("İşleminiz Gerçekleşmedi", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             connect.Close();
             return false;

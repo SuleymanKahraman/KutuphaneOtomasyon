@@ -13,19 +13,16 @@ namespace KutuphaneOtomasyon
     public partial class frmTeslimIslemleri : Form
     {
         private readonly DataHelper helper;
-        private KitapTeslimAlModel keeper;
         public frmTeslimIslemleri()
         {
             InitializeComponent();
             helper = new DataHelper();
-            keeper = new KitapTeslimAlModel();
         }
 
         private void formBelirsiz_Load(object sender, EventArgs e)
         {
             dgvTakip.DataSource = helper.VeriAl("SELECT * FROM vwTakipIslem");
             dgvTakip.ClearSelection();
-            //TODO: Deneme kodu
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
@@ -37,64 +34,66 @@ namespace KutuphaneOtomasyon
         {
             dgvTakip.DataSource= helper.VeriAl("SELECT * FROM vwTakipIslem WHERE KitapAdi LIKE '" + txtKitAd.Text + "%'");
         }
-
         private void btnKitapAl_Click(object sender, EventArgs e)
         {
             KitapTeslimAlModel model = new KitapTeslimAlModel()
             {
-                GeldigiTarih = dtpGeldigiTarih.Value,
                 UyeId = (int)dgvTakip.CurrentRow.Cells[1].Value,
                 TakipId = (int)dgvTakip.CurrentRow.Cells[0].Value,
                 KitapId = (int)dgvTakip.CurrentRow.Cells[4].Value,
-                TeslimTarihi = (DateTime)dgvTakip.CurrentRow.Cells[8].Value
+                TeslimTarihi = (DateTime)dgvTakip.CurrentRow.Cells[8].Value,
+                GeldigiTarih = dtpGeldigiTarih.Value,
+                IslemSonuc = (int)dgvTakip.CurrentRow.Cells[10].Value,
+
             };
-            TimeSpan fark = model.GeldigiTarih.Subtract(model.TeslimTarihi);
-            model.CezaPuani = fark.Days; 
-            bool result = helper.KitapTeslimAl(model);
-            if (result)
+            if(model.IslemSonuc != 0)
             {
-                MessageBox.Show("Kitap Başarıyla Teslim Alındı.");
+                MessageBox.Show("Kitap daha önce teslim edilmiş.", "Bildirim", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
             }
             else
             {
-                MessageBox.Show("İşlem Başarısız.");
+                TimeSpan fark = model.GeldigiTarih.Subtract(model.TeslimTarihi);
+                model.CezaPuani = fark.Days;
+                bool result = helper.KitapTeslimAl(model);
+                if (result)
+                {
+                    MessageBox.Show("Kitap Başarıyla Teslim Alındı.", "Bildirim", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("İşlem Başarısız.", "Bildirim", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                }
                 
             }
-            dgvTakip.DataSource = helper.VeriAl("SELECT * FROM vwTakipIslem");
+            if (rbEmanette.Checked)
+            {
+                rbEmanette_CheckedChanged(null,null);
+            }
+            else
+            {
+                rdb_TumunuGoster_CheckedChanged(null, null);
+            }
         }
 
         private void rbEmanette_CheckedChanged(object sender, EventArgs e)
         {
             dgvTakip.DataSource = helper.VeriAl("SELECT * FROM vwTakipIslem WHERE IslemSonucu = 0");
+            dgvTakip.ClearSelection();
         }
 
         private void rbTeslimAlınmış_CheckedChanged(object sender, EventArgs e)
         {
             dgvTakip.DataSource = helper.VeriAl("SELECT * FROM vwTakipIslem WHERE IslemSonucu = 1");
+            dgvTakip.ClearSelection();
         }
 
         private void rdb_TumunuGoster_CheckedChanged(object sender, EventArgs e)
         {
             dgvTakip.DataSource = helper.VeriAl("SELECT * FROM vwTakipIslem");
+            dgvTakip.ClearSelection();
 
         }
-
-
-
-
-        //private void Renklendir()
-        //{
-        //    for (int i = 0; i < dgvTakip.Rows.Count - 1; i++)
-        //    {
-        //        if ((bool)dgvTakip.Rows[i].Cells[10].Value)
-        //        {
-        //            dgvTakip.Rows[i].Cells[10].Style.BackColor = Color.Green;
-        //        }
-        //        else
-        //        {
-        //            dgvTakip.Rows[i].Cells[10].Style.BackColor = Color.Red;
-        //        }
-        //    }
-        //}
     }
 }
