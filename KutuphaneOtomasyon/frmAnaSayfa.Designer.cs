@@ -52,7 +52,6 @@
             this.txtEmanetGun = new System.Windows.Forms.TextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.dosyaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.çıkışToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.kitaplarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uyelerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.teslimİşlemleriToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -274,49 +273,41 @@
             this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.dosyaToolStripMenuItem,
-            this.kitaplarToolStripMenuItem,
             this.uyelerToolStripMenuItem,
-            this.teslimİşlemleriToolStripMenuItem});
+            this.kitaplarToolStripMenuItem,
+            this.teslimİşlemleriToolStripMenuItem,
+            this.dosyaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1562, 38);
+            this.menuStrip1.Size = new System.Drawing.Size(1562, 36);
             this.menuStrip1.TabIndex = 11;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // dosyaToolStripMenuItem
             // 
-            this.dosyaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.çıkışToolStripMenuItem});
             this.dosyaToolStripMenuItem.Name = "dosyaToolStripMenuItem";
-            this.dosyaToolStripMenuItem.Size = new System.Drawing.Size(86, 34);
-            this.dosyaToolStripMenuItem.Text = "Dosya";
-            // 
-            // çıkışToolStripMenuItem
-            // 
-            this.çıkışToolStripMenuItem.Name = "çıkışToolStripMenuItem";
-            this.çıkışToolStripMenuItem.Size = new System.Drawing.Size(158, 36);
-            this.çıkışToolStripMenuItem.Text = "Çıkış";
-            this.çıkışToolStripMenuItem.Click += new System.EventHandler(this.çıkışToolStripMenuItem_Click);
+            this.dosyaToolStripMenuItem.Size = new System.Drawing.Size(72, 32);
+            this.dosyaToolStripMenuItem.Text = "Çıkış";
+            this.dosyaToolStripMenuItem.Click += new System.EventHandler(this.dosyaToolStripMenuItem_Click);
             // 
             // kitaplarToolStripMenuItem
             // 
             this.kitaplarToolStripMenuItem.Name = "kitaplarToolStripMenuItem";
-            this.kitaplarToolStripMenuItem.Size = new System.Drawing.Size(103, 34);
+            this.kitaplarToolStripMenuItem.Size = new System.Drawing.Size(103, 32);
             this.kitaplarToolStripMenuItem.Text = "Kitaplar";
             this.kitaplarToolStripMenuItem.Click += new System.EventHandler(this.kitaplarToolStripMenuItem_Click);
             // 
             // uyelerToolStripMenuItem
             // 
             this.uyelerToolStripMenuItem.Name = "uyelerToolStripMenuItem";
-            this.uyelerToolStripMenuItem.Size = new System.Drawing.Size(89, 34);
-            this.uyelerToolStripMenuItem.Text = "Uyeler";
+            this.uyelerToolStripMenuItem.Size = new System.Drawing.Size(89, 32);
+            this.uyelerToolStripMenuItem.Text = "Üyeler";
             this.uyelerToolStripMenuItem.Click += new System.EventHandler(this.uyelerToolStripMenuItem_Click);
             // 
             // teslimİşlemleriToolStripMenuItem
             // 
             this.teslimİşlemleriToolStripMenuItem.Name = "teslimİşlemleriToolStripMenuItem";
-            this.teslimİşlemleriToolStripMenuItem.Size = new System.Drawing.Size(175, 34);
+            this.teslimİşlemleriToolStripMenuItem.Size = new System.Drawing.Size(175, 32);
             this.teslimİşlemleriToolStripMenuItem.Text = "Teslim İşlemleri";
             this.teslimİşlemleriToolStripMenuItem.Click += new System.EventHandler(this.teslimİşlemleriToolStripMenuItem_Click);
             // 
@@ -420,7 +411,6 @@
         private System.Windows.Forms.TextBox txtEmanetGun;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem dosyaToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem çıkışToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem kitaplarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem uyelerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem teslimİşlemleriToolStripMenuItem;

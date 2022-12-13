@@ -34,17 +34,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmTeslimIslemleri));
             this.dgvTakip = new System.Windows.Forms.DataGridView();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UyeID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Ad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Soyad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.KitapID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.KitapAdi = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Uygunluk = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AlimTarihi = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TeslimTarihi = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GeldigiTarih = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IslemSonucu = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnKitapAl = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtKitAd = new System.Windows.Forms.TextBox();
@@ -55,6 +44,17 @@
             this.rbEmanette = new System.Windows.Forms.RadioButton();
             this.rbTeslimAlınmış = new System.Windows.Forms.RadioButton();
             this.rdb_TumunuGoster = new System.Windows.Forms.RadioButton();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UyeID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Ad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Soyad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.KitapID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.KitapAdi = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CezaPuani = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AlimTarihi = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TeslimTarihi = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GeldigiTarih = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IslemSonucu = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTakip)).BeginInit();
             this.SuspendLayout();
             // 
@@ -70,7 +70,7 @@
             this.Soyad,
             this.KitapID,
             this.KitapAdi,
-            this.Uygunluk,
+            this.CezaPuani,
             this.AlimTarihi,
             this.TeslimTarihi,
             this.GeldigiTarih,
@@ -82,99 +82,6 @@
             this.dgvTakip.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvTakip.Size = new System.Drawing.Size(1224, 326);
             this.dgvTakip.TabIndex = 8;
-            // 
-            // ID
-            // 
-            this.ID.DataPropertyName = "ID";
-            this.ID.HeaderText = "ID";
-            this.ID.MinimumWidth = 8;
-            this.ID.Name = "ID";
-            this.ID.Visible = false;
-            // 
-            // UyeID
-            // 
-            this.UyeID.DataPropertyName = "UyeID";
-            this.UyeID.HeaderText = "UyeID";
-            this.UyeID.MinimumWidth = 8;
-            this.UyeID.Name = "UyeID";
-            this.UyeID.Visible = false;
-            // 
-            // Ad
-            // 
-            this.Ad.DataPropertyName = "Ad";
-            this.Ad.HeaderText = "Adı";
-            this.Ad.MinimumWidth = 8;
-            this.Ad.Name = "Ad";
-            // 
-            // Soyad
-            // 
-            this.Soyad.DataPropertyName = "Soyad";
-            this.Soyad.HeaderText = "Soyadı";
-            this.Soyad.MinimumWidth = 8;
-            this.Soyad.Name = "Soyad";
-            // 
-            // KitapID
-            // 
-            this.KitapID.DataPropertyName = "KitapID";
-            this.KitapID.HeaderText = "KitapID";
-            this.KitapID.MinimumWidth = 8;
-            this.KitapID.Name = "KitapID";
-            this.KitapID.Visible = false;
-            // 
-            // KitapAdi
-            // 
-            this.KitapAdi.DataPropertyName = "KitapAdi";
-            this.KitapAdi.HeaderText = "Kitap Adı";
-            this.KitapAdi.MinimumWidth = 8;
-            this.KitapAdi.Name = "KitapAdi";
-            // 
-            // Uygunluk
-            // 
-            this.Uygunluk.DataPropertyName = "Uygunluk";
-            this.Uygunluk.HeaderText = "Uygunluk";
-            this.Uygunluk.MinimumWidth = 8;
-            this.Uygunluk.Name = "Uygunluk";
-            this.Uygunluk.Visible = false;
-            // 
-            // AlimTarihi
-            // 
-            this.AlimTarihi.DataPropertyName = "AlimTarihi";
-            dataGridViewCellStyle1.Format = "D";
-            dataGridViewCellStyle1.NullValue = null;
-            this.AlimTarihi.DefaultCellStyle = dataGridViewCellStyle1;
-            this.AlimTarihi.HeaderText = "Verildiği Tarih";
-            this.AlimTarihi.MinimumWidth = 8;
-            this.AlimTarihi.Name = "AlimTarihi";
-            // 
-            // TeslimTarihi
-            // 
-            this.TeslimTarihi.DataPropertyName = "TeslimTarihi";
-            dataGridViewCellStyle2.Format = "D";
-            dataGridViewCellStyle2.NullValue = null;
-            this.TeslimTarihi.DefaultCellStyle = dataGridViewCellStyle2;
-            this.TeslimTarihi.HeaderText = "Teslim Tarihi";
-            this.TeslimTarihi.MinimumWidth = 8;
-            this.TeslimTarihi.Name = "TeslimTarihi";
-            // 
-            // GeldigiTarih
-            // 
-            this.GeldigiTarih.DataPropertyName = "GeldigiTarih";
-            dataGridViewCellStyle3.Format = "D";
-            dataGridViewCellStyle3.NullValue = "-";
-            this.GeldigiTarih.DefaultCellStyle = dataGridViewCellStyle3;
-            this.GeldigiTarih.HeaderText = "Teslim Edilen Tarih";
-            this.GeldigiTarih.MinimumWidth = 8;
-            this.GeldigiTarih.Name = "GeldigiTarih";
-            // 
-            // IslemSonucu
-            // 
-            this.IslemSonucu.DataPropertyName = "IslemSonucu";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.NullValue = null;
-            this.IslemSonucu.DefaultCellStyle = dataGridViewCellStyle4;
-            this.IslemSonucu.HeaderText = "Durumu";
-            this.IslemSonucu.MinimumWidth = 8;
-            this.IslemSonucu.Name = "IslemSonucu";
             // 
             // btnKitapAl
             // 
@@ -282,6 +189,99 @@
             this.rdb_TumunuGoster.UseVisualStyleBackColor = true;
             this.rdb_TumunuGoster.CheckedChanged += new System.EventHandler(this.rdb_TumunuGoster_CheckedChanged);
             // 
+            // ID
+            // 
+            this.ID.DataPropertyName = "ID";
+            this.ID.HeaderText = "ID";
+            this.ID.MinimumWidth = 8;
+            this.ID.Name = "ID";
+            this.ID.Visible = false;
+            // 
+            // UyeID
+            // 
+            this.UyeID.DataPropertyName = "UyeID";
+            this.UyeID.HeaderText = "UyeID";
+            this.UyeID.MinimumWidth = 8;
+            this.UyeID.Name = "UyeID";
+            this.UyeID.Visible = false;
+            // 
+            // Ad
+            // 
+            this.Ad.DataPropertyName = "Ad";
+            this.Ad.HeaderText = "Adı";
+            this.Ad.MinimumWidth = 8;
+            this.Ad.Name = "Ad";
+            // 
+            // Soyad
+            // 
+            this.Soyad.DataPropertyName = "Soyad";
+            this.Soyad.HeaderText = "Soyadı";
+            this.Soyad.MinimumWidth = 8;
+            this.Soyad.Name = "Soyad";
+            // 
+            // KitapID
+            // 
+            this.KitapID.DataPropertyName = "KitapID";
+            this.KitapID.HeaderText = "KitapID";
+            this.KitapID.MinimumWidth = 8;
+            this.KitapID.Name = "KitapID";
+            this.KitapID.Visible = false;
+            // 
+            // KitapAdi
+            // 
+            this.KitapAdi.DataPropertyName = "KitapAdi";
+            this.KitapAdi.HeaderText = "Kitap Adı";
+            this.KitapAdi.MinimumWidth = 8;
+            this.KitapAdi.Name = "KitapAdi";
+            // 
+            // CezaPuani
+            // 
+            this.CezaPuani.DataPropertyName = "CezaPuani";
+            this.CezaPuani.HeaderText = "Uygunluk";
+            this.CezaPuani.MinimumWidth = 8;
+            this.CezaPuani.Name = "CezaPuani";
+            this.CezaPuani.Visible = false;
+            // 
+            // AlimTarihi
+            // 
+            this.AlimTarihi.DataPropertyName = "AlimTarihi";
+            dataGridViewCellStyle1.Format = "D";
+            dataGridViewCellStyle1.NullValue = null;
+            this.AlimTarihi.DefaultCellStyle = dataGridViewCellStyle1;
+            this.AlimTarihi.HeaderText = "Verildiği Tarih";
+            this.AlimTarihi.MinimumWidth = 8;
+            this.AlimTarihi.Name = "AlimTarihi";
+            // 
+            // TeslimTarihi
+            // 
+            this.TeslimTarihi.DataPropertyName = "TeslimTarihi";
+            dataGridViewCellStyle2.Format = "D";
+            dataGridViewCellStyle2.NullValue = null;
+            this.TeslimTarihi.DefaultCellStyle = dataGridViewCellStyle2;
+            this.TeslimTarihi.HeaderText = "Teslim Tarihi";
+            this.TeslimTarihi.MinimumWidth = 8;
+            this.TeslimTarihi.Name = "TeslimTarihi";
+            // 
+            // GeldigiTarih
+            // 
+            this.GeldigiTarih.DataPropertyName = "GeldigiTarih";
+            dataGridViewCellStyle3.Format = "D";
+            dataGridViewCellStyle3.NullValue = "-";
+            this.GeldigiTarih.DefaultCellStyle = dataGridViewCellStyle3;
+            this.GeldigiTarih.HeaderText = "Teslim Edilen Tarih";
+            this.GeldigiTarih.MinimumWidth = 8;
+            this.GeldigiTarih.Name = "GeldigiTarih";
+            // 
+            // IslemSonucu
+            // 
+            this.IslemSonucu.DataPropertyName = "IslemSonucu";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.NullValue = null;
+            this.IslemSonucu.DefaultCellStyle = dataGridViewCellStyle4;
+            this.IslemSonucu.HeaderText = "Durumu";
+            this.IslemSonucu.MinimumWidth = 8;
+            this.IslemSonucu.Name = "IslemSonucu";
+            // 
             // frmTeslimIslemleri
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -330,7 +330,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Soyad;
         private System.Windows.Forms.DataGridViewTextBoxColumn KitapID;
         private System.Windows.Forms.DataGridViewTextBoxColumn KitapAdi;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Uygunluk;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CezaPuani;
         private System.Windows.Forms.DataGridViewTextBoxColumn AlimTarihi;
         private System.Windows.Forms.DataGridViewTextBoxColumn TeslimTarihi;
         private System.Windows.Forms.DataGridViewTextBoxColumn GeldigiTarih;

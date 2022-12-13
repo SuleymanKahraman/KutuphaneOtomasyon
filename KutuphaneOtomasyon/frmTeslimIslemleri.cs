@@ -38,9 +38,10 @@ namespace KutuphaneOtomasyon
         {
             KitapTeslimAlModel model = new KitapTeslimAlModel()
             {
-                UyeId = (int)dgvTakip.CurrentRow.Cells[1].Value,
                 TakipId = (int)dgvTakip.CurrentRow.Cells[0].Value,
+                UyeId = (int)dgvTakip.CurrentRow.Cells[1].Value,
                 KitapId = (int)dgvTakip.CurrentRow.Cells[4].Value,
+                CezaPuani = (int)dgvTakip.CurrentRow.Cells[6].Value,
                 TeslimTarihi = (DateTime)dgvTakip.CurrentRow.Cells[8].Value,
                 GeldigiTarih = dtpGeldigiTarih.Value,
                 IslemSonuc = (int)dgvTakip.CurrentRow.Cells[10].Value,
@@ -54,7 +55,7 @@ namespace KutuphaneOtomasyon
             else
             {
                 TimeSpan fark = model.GeldigiTarih.Subtract(model.TeslimTarihi);
-                model.CezaPuani = fark.Days;
+                model.CezaPuani += fark.Days;
                 bool result = helper.KitapTeslimAl(model);
                 if (result)
                 {

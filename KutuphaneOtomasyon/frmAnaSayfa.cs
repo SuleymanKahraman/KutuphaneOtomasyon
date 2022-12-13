@@ -97,11 +97,6 @@ namespace KutuphaneOtomasyon
             VerileriYukle();
         }
 
-        private void çıkışToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
         private void kitaplarToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmKitap frmKitap = new frmKitap();
@@ -141,6 +136,12 @@ namespace KutuphaneOtomasyon
 
         private void txtTeslimTarih_TextChanged(object sender, EventArgs e)
         {
+
+        }
+
+        private void dosyaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
